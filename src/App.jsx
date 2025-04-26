@@ -1,11 +1,23 @@
-import React from 'react';
-
+import React from "react";
+import { ConnectButton, useCurrentAccount } from "@iota/dapp-kit";
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <h1 className="text-2xl font-bold text-center mt-8">Digital Habit Tracker</h1>
+    <div className="App">
+      <header className="App-header">
+        <ConnectButton />
+      </header>
+      <ConnectedAccount />
     </div>
   );
+}
+function ConnectedAccount() {
+  const account = useCurrentAccount();
+
+  if (!account) {
+    return null;
+  }
+
+  return <div>Connected to {account.address}</div>;
 }
 
 export default App;
