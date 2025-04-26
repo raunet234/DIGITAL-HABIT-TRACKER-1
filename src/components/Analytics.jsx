@@ -1,11 +1,11 @@
-// src/components/Analytics.jsx
+// Example: src/components/Analytics.jsx
 import React from 'react';
 
 function Analytics() {
   return (
-    <div>
-      <h2>Analytics Page</h2>
-      {/* Your analytics content here */}
+    <div className="p-4">
+      <h2 className="text-2xl font-bold text-gray-800"><Analytics></Analytics> Component</h2>
+      {/* Your habit tracking UI goes here */}
     </div>
   );
 }
