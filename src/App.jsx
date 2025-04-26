@@ -1,3 +1,7 @@
+
+import React from "react";
+import { ConnectButton, useCurrentAccount } from "@iota/dapp-kit";
+function App() {
 // src/App.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
@@ -21,8 +25,22 @@ function App() {
         <Route path="/rewards" element={<RewardsStore />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
+  
+      <header className="App-header">
+        <ConnectButton />
+      </header>
+      <ConnectedAccount />
     </div>
   );
+}
+function ConnectedAccount() {
+  const account = useCurrentAccount();
+
+  if (!account) {
+    return null;
+  }
+
+  return <div>Connected to {account.address}</div>;
 }
 
 export default App;
