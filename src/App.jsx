@@ -1,7 +1,3 @@
-
-import React from "react";
-import { ConnectButton, useCurrentAccount } from "@iota/dapp-kit";
-function App() {
 // src/App.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
@@ -12,6 +8,17 @@ import RewardsStore from './components/RewardsStore';
 import Settings from './components/Settings';
 import WalletConnect from './components/WalletConnect';
 import Navigation from './components/Navigation';
+import { ConnectButton, useCurrentAccount } from '@iota/dapp-kit';
+
+function ConnectedAccount() {
+  const account = useCurrentAccount();
+
+  if (!account) {
+    return null;
+  }
+
+  return <div>Connected to {account.address}</div>;
+}
 
 function App() {
   return (
@@ -25,22 +32,12 @@ function App() {
         <Route path="/rewards" element={<RewardsStore />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
-  
       <header className="App-header">
         <ConnectButton />
       </header>
       <ConnectedAccount />
     </div>
   );
-}
-function ConnectedAccount() {
-  const account = useCurrentAccount();
-
-  if (!account) {
-    return null;
-  }
-
-  return <div>Connected to {account.address}</div>;
 }
 
 export default App;
