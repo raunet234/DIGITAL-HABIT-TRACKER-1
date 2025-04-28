@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useWallet } from '../hooks/useWallet';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useWallet } from "../hooks/useWallet";
+import { ConnectButton } from "@iota/dapp-kit";
 
 export default function WalletConnect() {
-  const navigate = useNavigate();  // Programmatic navigation :contentReference[oaicite:0]{index=0}
+  const navigate = useNavigate(); // Programmatic navigation :contentReference[oaicite:0]{index=0}
   const {
-    wallets,                        // Installed IOTA wallets :contentReference[oaicite:1]{index=1}
-    account,                        // Currently connected account :contentReference[oaicite:2]{index=2}
-    connectWallet,                  // Connect mutation :contentReference[oaicite:3]{index=3}
-    disconnect,                     // Disconnect mutation :contentReference[oaicite:4]{index=4}
-    isConnecting,                   // Loading flag for connection
+    wallets, // Installed IOTA wallets :contentReference[oaicite:1]{index=1}
+    account, // Currently connected account :contentReference[oaicite:2]{index=2} // Connect mutation :contentReference[oaicite:3]{index=3}
+    disconnect, // Disconnect mutation :contentReference[oaicite:4]{index=4}
+    // Loading flag for connection
   } = useWallet();
 
   // Redirect to dashboard after successful connection
   useEffect(() => {
     if (account) {
-      navigate('/dashboard', { replace: true });  // Replace history entry :contentReference[oaicite:5]{index=5}
+      navigate("/dashboard", { replace: true }); // Replace history entry :contentReference[oaicite:5]{index=5}
     }
   }, [account, navigate]);
 
@@ -44,14 +44,7 @@ export default function WalletConnect() {
                 )}
                 <span className="font-medium">{wallet.name}</span>
               </div>
-              <button
-                type="button"
-                onClick={() => connectWallet(wallet)}
-                disabled={isConnecting}
-                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded disabled:opacity-50"
-              >
-                {isConnecting ? 'Connecting…' : 'Connect'}
-              </button>
+              <ConnectButton />
             </li>
           ))}
         </ul>
