@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom"; // declarative client-side navigation :contentReference[oaicite:0]{index=0}
 import HabitLogger from "./HabitLogger";
+import HabitChallenges from "./HabitChallenges";
 import { useRewards } from "../hooks/useRewards";
 import { useWallet } from "../hooks/useWallet";
 
@@ -10,14 +11,14 @@ export default function MainDashboard() {
   const { account } = useWallet(); // wallet account from IOTA dApp Kit :contentReference[oaicite:2]{index=2}
 
   return (
-    <div className="flex flex-col items-center bg-gray-50 min-h-screen p-2 sm:p-4">
+    <div className="flex flex-col items-center bg-gray-50 min-h-screen p-2 sm:p-4 pt-20">
       {" "}
       {/* full-height centered layout :contentReference[oaicite:3]{index=3} */}
       {/* Header */}
       <header className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold">Your Dashboard</h1>
         {account && (
-          <div className="mt-2 sm:mt-0 text-xs sm:text-sm font-mono break-all">
+          <div className="mt-2 sm:mt-0 text-xs sm:text-sm font-mono break-all bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm">
             Connected: {account.address}
           </div>
         )}
@@ -39,6 +40,10 @@ export default function MainDashboard() {
         >
           Convert to MIOTA
         </button>
+      </section>
+      {/* Habit Challenges */}
+      <section className="w-full max-w-4xl mb-4 sm:mb-8">
+        <HabitChallenges />
       </section>
       {/* Habit Logger */}
       <section className="w-full max-w-4xl mb-4 sm:mb-8">
