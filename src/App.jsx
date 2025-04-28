@@ -1,42 +1,36 @@
-import React from "react";
-import { ConnectButton, useCurrentAccount } from "@iota/dapp-kit";
-import { Routes, Route } from "react-router-dom";
-import GuestDashboard from "./components/GuestDashboard";
-import MainDashboard from "./components/MainDashboard";
-import Analytics from "./components/Analytics";
-import RewardsStore from "./components/RewardsStore";
-import Settings from "./components/Settings";
-import WalletConnect from "./components/WalletConnect";
-import Navigation from "./components/Navigation";
 
-function App() {
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';                        // React Router v6 :contentReference[oaicite:0]{index=0}
+import { useWalletContext } from './contexts/WalletContext';            // Custom context hook
+
+import Navigation      from './components/Navigation';
+import GuestDashboard  from './components/GuestDashboard';
+import WalletConnect   from './components/WalletConnect';
+import MainDashboard   from './components/MainDashboard';
+import Analytics       from './components/Analytics';
+import RewardsStore    from './components/RewardsStore';
+import Settings        from './components/Settings';
+
+export default function App() {
+  // Access account if you need conditional rendering in App-level (optional)
+  const { account } = useWalletContext();                                // React Context API :contentReference[oaicite:1]{index=1}
+
+
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      {/* Top navigation bar */}
       <Navigation />
-      <Routes>
-        <Route path="/" element={<GuestDashboard />} />
-        <Route path="/connect" element={<WalletConnect />} />
-        <Route path="/dashboard" element={<MainDashboard />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/rewards" element={<RewardsStore />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
+      {/* Main content area */}
+      <main className="flex-1">
+        <Routes>
+          <Route path="/"        element={<GuestDashboard />} />
+          <Route path="/connect" element={<WalletConnect />} />
+          <Route path="/dashboard" element={<MainDashboard />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/rewards"   element={<RewardsStore />} />
+          <Route path="/settings"  element={<Settings />} />
+        </Routes>
 
-      <header className="App-header">
-        <ConnectButton />
-      </header>
-      <ConnectedAccount />
     </div>
   );
 }
-function ConnectedAccount() {
-  const account = useCurrentAccount();
-
-  if (!account) {
-    return null;
-  }
-
-  return <div>Connected to {account.address}</div>;
-}
-
-export default App;
