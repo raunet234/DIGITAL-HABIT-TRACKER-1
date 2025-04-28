@@ -1,3 +1,4 @@
+
 // src/main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -41,6 +42,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           
           </WalletProvider>
         </DappWalletProvider>
+
       </IotaClientProvider>
     </QueryClientProvider>
   </React.StrictMode>
