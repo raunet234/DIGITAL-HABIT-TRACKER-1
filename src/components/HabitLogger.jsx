@@ -1,31 +1,31 @@
 // src/components/HabitLogger.jsx
 
-import React, { useState } from 'react';
-import { useHabits } from '../hooks/useHabits';
+import React, { useState } from "react";
+import { useHabits } from "../hooks/useHabits";
 
 export default function HabitLogger() {
   const { habits, isLoading, addHabit, removeHabit, logHabit } = useHabits();
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const trimmed = title.trim();
     if (!trimmed) return;
     addHabit(trimmed);
-    setTitle('');
+    setTitle("");
   };
 
   if (isLoading) {
     return (
-      <div className="p-4 max-w-md mx-auto">
+      <div className="p-2 sm:p-4 max-w-md mx-auto">
         <p className="text-center text-gray-600">Loading habits…</p>
       </div>
     );
   }
 
   return (
-    <div className="p-4 max-w-lg mx-auto bg-white rounded-lg shadow">
-      <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
+    <div className="p-2 sm:p-4 max-w-lg mx-auto bg-white rounded-lg shadow">
+      <form onSubmit={handleSubmit} className="flex gap-2 mb-3 sm:mb-4">
         <input
           type="text"
           value={title}
@@ -35,25 +35,27 @@ export default function HabitLogger() {
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded"
+          className="px-3 sm:px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded"
         >
           Add
         </button>
       </form>
 
       {habits.length === 0 ? (
-        <p className="text-center text-gray-500">No habits yet. Add one above!</p>
+        <p className="text-center text-gray-500">
+          No habits yet. Add one above!
+        </p>
       ) : (
-        <ul className="space-y-3">
+        <ul className="space-y-2 sm:space-y-3">
           {habits.map(({ id, title, logs }) => (
             <li
               key={id}
-              className="flex items-center justify-between p-3 border border-gray-200 rounded"
+              className="flex items-center justify-between p-2 sm:p-3 border border-gray-200 rounded"
             >
               <div>
                 <p className="font-medium">{title}</p>
-                <p className="text-sm text-gray-500">
-                  Logged {logs.length} time{logs.length !== 1 && 's'}
+                <p className="text-xs sm:text-sm text-gray-500">
+                  Logged {logs.length} time{logs.length !== 1 && "s"}
                 </p>
               </div>
               <div className="flex gap-2">
