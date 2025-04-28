@@ -1,5 +1,9 @@
 import React from "react";
-import { ConnectButton, useCurrentAccount } from "@iota/dapp-kit";
+import {
+  ConnectButton,
+  useCurrentAccount,
+  useIotaClientQuery,
+} from "@iota/dapp-kit";
 import { Routes, Route } from "react-router-dom";
 import GuestDashboard from "./components/GuestDashboard";
 import MainDashboard from "./components/MainDashboard";
@@ -36,7 +40,35 @@ function ConnectedAccount() {
     return null;
   }
 
-  return <div>Connected to {account.address}</div>;
+  return (
+    <div>
+      <div>Connected to {account.address}</div>
+      <OwnedObjects address={account.address} />
+    </div>
+  );
+}
+
+function OwnedObjects({ address }) {
+  const { data } = useIotaClientQuery("getOwnedObjects", {
+    owner: address,
+  });
+  if (!data) {
+    return null;
+  }
+
+  return (
+    <ul>
+      {data.data.map((object) => (
+        <li key={object.data?.objectId}>
+          <a
+            href={`https://explorer.rebased.iota.org/object/${object.data?.objectId}`}
+          >
+            {object.data?.objectId}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export default App;
