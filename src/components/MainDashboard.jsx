@@ -36,6 +36,7 @@ export default function MainDashboard() {
         )}
       </header>
 
+
       {/* Points + Convert */}
       <section className="
         w-full max-w-4xl
