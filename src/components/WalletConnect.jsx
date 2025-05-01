@@ -4,29 +4,23 @@ import { useWallet } from "../hooks/useWallet";
 import { ConnectButton } from "@iota/dapp-kit";
 
 export default function WalletConnect() {
-  const navigate = useNavigate(); // Programmatic navigation :contentReference[oaicite:0]{index=0}
-  const {
-    wallets, // Installed IOTA wallets :contentReference[oaicite:1]{index=1}
-    account, // Currently connected account :contentReference[oaicite:2]{index=2} // Connect mutation :contentReference[oaicite:3]{index=3}
-    disconnect, // Disconnect mutation :contentReference[oaicite:4]{index=4}
-    // Loading flag for connection
-  } = useWallet();
+  const navigate = useNavigate();
+  const { wallets, account, disconnect } = useWallet();
 
-  // Redirect to dashboard after successful connection
   useEffect(() => {
     if (account) {
-      navigate("/dashboard", { replace: true }); // Replace history entry :contentReference[oaicite:5]{index=5}
+      navigate("/dashboard", { replace: true });
     }
   }, [account, navigate]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-3 sm:p-4">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 p-3 sm:p-4">
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-gray-100">
         Connect Your IOTA Wallet
       </h1>
 
       {wallets.length === 0 ? (
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-300">
           No IOTA wallets detected. Please install one to continue.
         </p>
       ) : (
@@ -34,7 +28,7 @@ export default function WalletConnect() {
           {wallets.map((wallet) => (
             <li
               key={wallet.name}
-              className="flex items-center justify-between p-3 sm:p-4 bg-white rounded-lg shadow"
+              className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-lg shadow"
             >
               <div className="flex items-center space-x-3">
                 {wallet.icon && (
@@ -44,7 +38,9 @@ export default function WalletConnect() {
                     className="w-6 sm:w-8 h-6 sm:h-8"
                   />
                 )}
-                <span className="font-medium">{wallet.name}</span>
+                <span className="font-medium text-gray-900 dark:text-gray-100">
+                  {wallet.name}
+                </span>
               </div>
               <ConnectButton />
             </li>
@@ -53,7 +49,7 @@ export default function WalletConnect() {
       )}
 
       {account && (
-        <div className="mt-4 sm:mt-6 text-center w-full max-w-sm">
+        <div className="mt-4 sm:mt-6 text-center w-full max-w-sm text-gray-800 dark:text-gray-100">
           <p className="break-all">
             Connected:{" "}
             <span className="font-mono text-xs sm:text-sm">

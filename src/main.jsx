@@ -13,8 +13,10 @@ import {
   WalletProvider as DappWalletProvider,
 } from "@iota/dapp-kit";
 import { getFullnodeUrl } from "@iota/iota-sdk/client";
+import { WalletProvider } from './contexts/WalletContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
-import { WalletProvider } from "./contexts/WalletContext";
+
 
 const queryClient = new QueryClient();
 
@@ -25,21 +27,19 @@ const networks = {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* 1. React Query provider for caching & mutations */}
-    <QueryClientProvider client={queryClient}>
-      {/* 2. dApp-Kit provider supplies IOTA client/network config */}
-      <IotaClientProvider networks={networks} defaultNetwork="devnet">
-        {/* 3. dApp-Kit wallet provider manages wallet connections */}
-        <DappWalletProvider>
-          {/* 4. Your custom context exposes useWallet hook throughout the tree */}
-          <WalletProvider>
-            {/* 5. BrowserRouter for SPA routing */}
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </WalletProvider>
-        </DappWalletProvider>
-      </IotaClientProvider>
-    </QueryClientProvider>
-  </React.StrictMode>,
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <IotaClientProvider networks={networks} defaultNetwork="devnet">
+          <DappWalletProvider>
+            <WalletProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </WalletProvider>
+          </DappWalletProvider>
+        </IotaClientProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  </React.StrictMode>
+
 );

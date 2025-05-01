@@ -1,3 +1,4 @@
+// src/components/HabitChallenges.jsx
 import React, { useState } from "react";
 
 const CHALLENGES = [
@@ -47,100 +48,101 @@ export default function HabitChallenges() {
   };
 
   const handleDailySubmit = (challengeId) => {
-    const updatedChallenges = selectedChallenges.map((challenge) => {
-      if (challenge.id === challengeId) {
-        const newProgress = challenge.progress + 1;
-        return { ...challenge, progress: newProgress };
-      }
-      return challenge;
-    });
-    setSelectedChallenges(updatedChallenges);
+    const updated = selectedChallenges.map((c) =>
+      c.id === challengeId ? { ...c, progress: c.progress + 1 } : c
+    );
+    setSelectedChallenges(updated);
   };
 
   return (
-    <div className="w-full max-w-4xl bg-white rounded-lg shadow p-4 sm:p-6">
-      <h2 className="text-xl sm:text-2xl font-bold mb-4">Special Challenges</h2>
-      <p className="text-gray-600 mb-6">
+    <div className="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-lg shadow p-4 sm:p-6">
+      <h2 className="text-xl sm:text-2xl fo nt-bold mb-4 dark:text-gray-100">
+        Special Challenges
+      </h2>
+      <p className="text-gray-600 dark:text-gray-300 mb-6">
         Complete these challenges for bonus points!
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {CHALLENGES.map((challenge) => {
-          const selectedChallenge = selectedChallenges.find(
-            (c) => c.id === challenge.id
-          );
-          const progress = selectedChallenge ? selectedChallenge.progress : 0;
-          const isCompleted = progress === challenge.duration;
-          const remainingDays = challenge.duration - progress;
+          const sel = selectedChallenges.find((c) => c.id === challenge.id);
+          const progress = sel ? sel.progress : 0;
+          const completed = progress >= challenge.duration;
+          const remaining = challenge.duration - progress;
 
           return (
             <div
               key={challenge.id}
-              className={`border rounded-lg p-4 ${
-                isCompleted ? "border-green-500 bg-green-50" : "border-gray-200"
-              }`}
+              className={`border rounded-lg p-4 transition-colors duration-200
+                ${
+                  completed
+                    ? "border-green-500 bg-green-50 dark:bg-green-900/50"
+                    : "border-gray-200 dark:border-gray-700 dark:bg-gray-700/50"
+                }`}
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <h3 className="text-lg font-semibold flex items-center gap-2 dark:text-gray-100">
                     <span>{challenge.icon}</span>
                     {challenge.title}
                   </h3>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                     {challenge.description}
                   </p>
-                  <p className="text-sm text-indigo-600 mt-2">
-                    Reward: {challenge.points} points
+                  <p className="text-sm mt-2">
+                    <span className="text-indigo-600 dark:text-indigo-300">
+                      Reward: {challenge.points} points
+                    </span>
                   </p>
                 </div>
-                <span className="text-xs px-2 py-1 rounded-full bg-gray-100">
+                <span className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200">
                   {challenge.duration} days
                 </span>
               </div>
 
-              {selectedChallenge && (
+              {sel && (
                 <>
                   <div className="mt-4">
-                    <div className="flex justify-between text-sm mb-1">
+                    <div className="flex justify-between text-sm mb-1 dark:text-gray-300">
                       <span>
                         Progress: {progress}/{challenge.duration} days
                       </span>
-                      <span>{remainingDays} days remaining</span>
+                      <span>{remaining} days remaining</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                       <div
-                        className="bg-blue-600 h-2 rounded-full"
+                        className="bg-blue-600 dark:bg-blue-400 h-2 rounded-full"
                         style={{
                           width: `${(progress / challenge.duration) * 100}%`,
                         }}
-                      ></div>
+                      />
                     </div>
                   </div>
                   <button
                     onClick={() => handleDailySubmit(challenge.id)}
-                    disabled={isCompleted}
-                    className="w-full mt-4 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50"
+                    disabled={completed}
+                    className="w-full mt-4 py-2 px-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg disabled:opacity-50 transition-colors duration-200"
                   >
-                    {isCompleted
+                    {completed
                       ? "Challenge Completed!"
                       : "Submit Daily Progress"}
                   </button>
                 </>
               )}
 
-              {!selectedChallenge && (
+              {!sel && (
                 <div className="mt-4">
                   <button
                     onClick={() => handleStartChallenge(challenge)}
-                    className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg"
+                    className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white rounded-lg transition-colors duration-200"
                   >
                     Start Challenge
                   </button>
                 </div>
               )}
 
-              {isCompleted && (
-                <div className="text-green-600 font-semibold text-center mt-2">
+              {completed && (
+                <div className="text-green-600 dark:text-green-300 font-semibold text-center mt-2">
                   Challenge Completed! 🎉
                 </div>
               )}
