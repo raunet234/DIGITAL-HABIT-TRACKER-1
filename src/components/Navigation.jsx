@@ -1,11 +1,17 @@
 // src/components/Navigation.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useWallet } from "../hooks/useWallet";
+import { useGetBalance } from "../hooks/useGetBalance";
+import { ConnectButton } from "@iota/dapp-kit";
 
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { account } = useWallet();
+
+  const { balance } = useGetBalance();
 
   // Handle scroll effect
   useEffect(() => {
@@ -45,6 +51,45 @@ function Navigation() {
             <NavLink to="/analytics" label="Analytics" />
             <NavLink to="/rewards" label="Rewards" />
             <NavLink to="/settings" label="Settings" />
+            {!account && <ConnectButton />}
+            {account && (
+              <button
+                className="relative text-sm font-medium group"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <div className="flex items-center px-3 py-2 text-gray-700 hover:text-indigo-600">
+                  <span>User</span>
+                  <svg
+                    className="w-4 h-4 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+                <div className="absolute right-0 hidden pt-2 group-hover:block">
+                  <div className="w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                    <div className="py-1">
+                      <button className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100">
+                        {account.address}
+                      </button>
+                      <button className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100">
+                        Balance: {balance || "0"}
+                      </button>
+                      <button className="block w-full px-4 py-2 text-sm text-left text-red-600 hover:bg-gray-100">
+                        Disconnect
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            )}
           </div>
 
           {/* Mobile menu button */}
