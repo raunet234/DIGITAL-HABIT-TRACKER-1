@@ -96,19 +96,12 @@ export default function RewardsStore() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-2 sm:p-4">
+    <div className="min-h-screen bg-gray-50 p-2 sm:p-4 mt-16">
       <div className="max-w-xl mx-auto space-y-4 sm:space-y-6">
-        {/* Header */}
-        <header className="flex justify-between items-center">
-          <h1 className="text-2xl sm:text-3xl font-bold">Rewards Store</h1>
-          <button
-            type="button"
-            onClick={() => navigate(-1)} // navigate back in history :contentReference[oaicite:2]{index=2}
-            className="text-blue-500 hover:underline"
-          >
-            ← Back
-          </button>
-        </header>
+        {/* Heading */}
+    <div className="py-4">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Rewards Store</h1>
+    </div>
 
         {/* Current Points */}
         <div className="bg-white p-3 sm:p-4 rounded-lg shadow">

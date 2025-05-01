@@ -69,8 +69,8 @@ export default function Analytics() {
   }
 
   return (
-    <div className="p-2 sm:p-6 space-y-4 sm:space-y-6 max-w-4xl mx-auto">
-      {/* Summary Cards */}
+<div className="p-2 sm:p-6 space-y-4 sm:space-y-6 max-w-4xl mx-auto mt-16">
+{/* Summary Cards */}
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
         Analytics
       </h1>

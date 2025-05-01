@@ -11,8 +11,8 @@ export default function MainDashboard() {
   const { account } = useWallet(); // wallet account from IOTA dApp Kit :contentReference[oaicite:2]{index=2}
 
   return (
-    <div className="flex flex-col items-center bg-gray-50 min-h-screen p-2 sm:p-4 pt-20">
-      {" "}
+     <div className="flex flex-col items-center bg-gray-50 min-h-screen p-2 sm:p-4 mt-16">
+    {" "}
       {/* full-height centered layout :contentReference[oaicite:3]{index=3} */}
       {/* Header */}
       <div className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8 z-100 ">

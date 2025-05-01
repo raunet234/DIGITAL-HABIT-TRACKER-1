@@ -1,5 +1,5 @@
-// src/components/Settings.jsx
 import React, { useState, useEffect } from "react";
+
 import { useWallet } from "../hooks/useWallet"; // fetches account & disconnect :contentReference[oaicite:1]{index=1}
 import { useRewards } from "../hooks/useRewards"; // fetches points
 import {
@@ -36,22 +36,22 @@ export default function Settings() {
     };
     getBalance();
   }, [connectionStatus]);
-  // Auto-donation toggle, persisted in localStorage via useState initializer :contentReference[oaicite:3]{index=3}
+
   const [autoDonate, setAutoDonate] = useState(() => {
     return localStorage.getItem("autoDonate") === "true";
   });
 
-  // Sync autoDonate to localStorage whenever it changes :contentReference[oaicite:4]{index=4}
   useEffect(() => {
     localStorage.setItem("autoDonate", String(autoDonate));
   }, [autoDonate]);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
+    <div className="min-h-screen bg-gray-50 pt-24 px-3 sm:px-6">
       <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Settings</h1>
 
       {/* Wallet Management Section */}
       <section className="bg-white p-3 sm:p-4 rounded-lg shadow mb-4 sm:mb-6">
+
         <h2 className="text-lg sm:text-xl font-semibold mb-2">
           Wallet Management
         </h2>
@@ -85,9 +85,7 @@ export default function Settings() {
 
             <p>
               <span className="font-medium">Address:</span>{" "}
-              <span className="font-mono text-xs sm:text-sm">
-                {account.address}
-              </span>
+              <span className="font-mono text-xs sm:text-sm">{account.address}</span>
             </p>
             <button
               type="button"
@@ -112,7 +110,6 @@ export default function Settings() {
       <section className="bg-white p-3 sm:p-4 rounded-lg shadow">
         <h2 className="text-lg sm:text-xl font-semibold mb-2">Auto-Donate</h2>
         <label className="flex items-center space-x-2">
-          {/* Tailwind's checkbox class */}
           <input
             type="checkbox"
             checked={autoDonate}

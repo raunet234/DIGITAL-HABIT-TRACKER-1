@@ -1,6 +1,6 @@
 // src/components/GuestDashboard.jsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Client‐side routing :contentReference[oaicite:0]{index=0}
 
 export default function GuestDashboard() {
   return (
@@ -45,8 +45,12 @@ export default function GuestDashboard() {
       {/* Features Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Feature 1 */}
-          <div className="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
+
+          {/* Feature 1 → Analytics */}
+          <Link
+            to="/analytics"
+            className="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-200"
+          >
             <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
               <span className="text-2xl">📊</span>
             </div>
@@ -54,13 +58,15 @@ export default function GuestDashboard() {
               Track Your Progress
             </h3>
             <p className="text-gray-600">
-              Monitor your habits with beautiful analytics and progress
-              tracking.
+              Monitor your habits with beautiful analytics and progress tracking.
             </p>
-          </div>
+          </Link>
 
-          {/* Feature 2 */}
-          <div className="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
+          {/* Feature 2 → Rewards */}
+          <Link
+            to="/rewards"
+            className="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-200"
+          >
             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
               <span className="text-2xl">🏆</span>
             </div>
@@ -68,23 +74,26 @@ export default function GuestDashboard() {
               Earn Rewards
             </h3>
             <p className="text-gray-600">
-              Get points for your achievements and redeem them for exciting
-              rewards.
+              Get points for your achievements and redeem them for exciting rewards.
             </p>
-          </div>
+          </Link>
 
-          {/* Feature 3 */}
-          <div className="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
+          {/* Feature 3 → Settings */}
+          <Link
+            to="/settings"
+            className="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-200"
+          >
             <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">🔗</span>
+              <span className="text-2xl">⚙️</span>
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              Blockchain Powered
+              App Settings
             </h3>
             <p className="text-gray-600">
-              Secure and transparent tracking with IOTA blockchain technology.
+              Manage your wallet, auto-donation, and personal preferences.
             </p>
-          </div>
+          </Link>
+
         </div>
       </div>
 
