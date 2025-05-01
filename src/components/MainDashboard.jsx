@@ -15,14 +15,14 @@ export default function MainDashboard() {
     {" "}
       {/* full-height centered layout :contentReference[oaicite:3]{index=3} */}
       {/* Header */}
-      <header className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8">
+      <div className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8 z-100 ">
         <h1 className="text-2xl sm:text-3xl font-bold">Your Dashboard</h1>
         {account && (
-          <div className="mt-2 sm:mt-0 text-xs sm:text-sm font-mono break-all bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm">
+          <div className="mt-2 sm:mt-0 text-xs sm:text-sm font-mono break-all bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm border-2 ">
             Connected: {account.address}
           </div>
         )}
-      </header>
+      </div>
       {/* Points + Convert */}
       <section className="w-full max-w-4xl bg-white p-4 sm:p-6 rounded-lg shadow mb-4 sm:mb-8 flex flex-col sm:flex-row justify-between items-center">
         <div>
