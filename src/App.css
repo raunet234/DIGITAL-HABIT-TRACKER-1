@@ -5,6 +5,14 @@
   text-align: center;
 }
 
+html {
+  @apply bg-white text-black;
+}
+html.dark {
+  @apply bg-gray-900 text-gray-100;
+}
+
+
 @media (min-width: 640px) {
   #root {
     padding: 2rem;
