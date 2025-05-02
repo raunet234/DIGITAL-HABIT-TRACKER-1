@@ -63,11 +63,11 @@ export default function Analytics() {
   }
 
   return (
-    <div className="p-2 sm:p-6 space-y-4 sm:space-y-6 max-w-4xl mx-auto mt-16">
+    <div className="bg-white dark:bg-gray-900 p-2 sm:p-6 space-y-4 sm:space-y-6 max-w-4xl mx-auto mt-16 min-h-screen">
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
         Analytics
       </h1>
-
+  
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
         <div className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow">
@@ -95,11 +95,11 @@ export default function Analytics() {
           </p>
         </div>
       </div>
-
+  
       {/* Bar Chart */}
       <section className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow">
         <Bar data={chartData} options={chartOptions} />
       </section>
     </div>
   );
-}
+}  
