@@ -25,8 +25,10 @@ export default function Settings() {
           <div className="space-y-2">
             <p>
               <span className="font-medium">Address:</span>{" "}
-              <span className="font-mono text-xs sm:text-sm">{account.address}</span>
-            </p>
+              <span className="font-mono text-xs sm:text-sm">
+  {account?.address || "N/A"}
+</span>
+              </p>
             <button
               type="button"
               onClick={disconnect}
