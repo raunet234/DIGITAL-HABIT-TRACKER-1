@@ -1,5 +1,7 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+
 import { useWalletContext } from "./contexts/WalletContext"; // Custom context hook
 import { HabitProvider } from "./context/HabitContext";
 
@@ -12,27 +14,83 @@ import RewardsStore from "./components/RewardsStore";
 import Settings from "./components/Settings";
 import HabitLogger from "./components/HabitLogger";
 
+// Transition variants
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 },
+  transition: { duration: 0.3, ease: "easeInOut" },
+};
+
 export default function App() {
-  // Access account if you need conditional rendering in App-level (optional)
-  const { account: _ } = useWalletContext(); // React Context API :contentReference[oaicite:1]{index=1}
+  const { account: _ } = useWalletContext();
+  const location = useLocation();
 
   return (
     <HabitProvider>
       <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
-
-        {/* Top navigation bar */}
         <Navigation />
-        {/* Main content area */}
         <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<GuestDashboard />} />
-            <Route path="/connect" element={<WalletConnect />} />
-            <Route path="/dashboard" element={<MainDashboard />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/rewards" element={<RewardsStore />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/habits" element={<HabitLogger />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route
+                path="/"
+                element={
+                  <motion.div {...pageVariants}>
+                    <GuestDashboard />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/connect"
+                element={
+                  <motion.div {...pageVariants}>
+                    <WalletConnect />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/dashboard"
+                element={
+                  <motion.div {...pageVariants}>
+                    <MainDashboard />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/analytics"
+                element={
+                  <motion.div {...pageVariants}>
+                    <Analytics />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/rewards"
+                element={
+                  <motion.div {...pageVariants}>
+                    <RewardsStore />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <motion.div {...pageVariants}>
+                    <Settings />
+                  </motion.div>
+                }
+              />
+              <Route
+                path="/habits"
+                element={
+                  <motion.div {...pageVariants}>
+                    <HabitLogger />
+                  </motion.div>
+                }
+              />
+            </Routes>
+          </AnimatePresence>
         </main>
       </div>
     </HabitProvider>
