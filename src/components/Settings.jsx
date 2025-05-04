@@ -94,11 +94,12 @@ export default function Settings() {
             </div>
 
             <p>
-              <span className="font-medium dark:text-gray-300">Address:</span>{" "}
-              <span className="font-mono text-xs sm:text-sm dark:text-gray-100">
-                {account.address}
-              </span>
-            </p>
+              <span className="font-medium">Address:</span>{" "}
+              <span className="font-mono text-xs sm:text-sm">
+  {account?.address || "N/A"}
+</span>
+              </p>
+
             <button
               type="button"
               onClick={disconnect}
