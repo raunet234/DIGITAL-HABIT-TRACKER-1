@@ -1,4 +1,6 @@
 // src/components/HabitLogger.jsx
+import { motion } from "framer-motion";
+
 import React, { useState } from "react";
 import { useHabits } from "../hooks/useHabits";
 
@@ -48,36 +50,41 @@ export default function HabitLogger() {
         </p>
       ) : (
         <ul className="space-y-2 sm:space-y-3">
-          {habits.map(({ id, title, logs }) => (
-            <li
-              key={id}
-              className="flex items-center justify-between p-2 sm:p-3 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 rounded transition-colors duration-200"
-            >
-              <div>
-                <p className="font-medium dark:text-gray-100">{title}</p>
-                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                  Logged {logs.length} time{logs.length !== 1 && "s"}
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => logHabit(id)}
-                  className="px-2 py-1 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white rounded transition-colors duration-200"
-                >
-                  Log
-                </button>
-                <button
-                  type="button"
-                  onClick={() => removeHabit(id)}
-                  className="px-2 py-1 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded transition-colors duration-200"
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+  {habits.map(({ id, title, logs }) => (
+    <motion.li
+      key={id}
+      layout
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3 }}
+      className="flex items-center justify-between p-2 sm:p-3 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 rounded transition-colors duration-200"
+    >
+      <div>
+        <p className="font-medium dark:text-gray-100">{title}</p>
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+          Logged {logs.length} time{logs.length !== 1 && "s"}
+        </p>
+      </div>
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={() => logHabit(id)}
+          className="px-2 py-1 bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white rounded transition-colors duration-200"
+        >
+          Log
+        </button>
+        <button
+          type="button"
+          onClick={() => removeHabit(id)}
+          className="px-2 py-1 bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white rounded transition-colors duration-200"
+        >
+          Delete
+        </button>
+      </div>
+    </motion.li>
+  ))}
+</ul>
+
       )}
     </div>
   );

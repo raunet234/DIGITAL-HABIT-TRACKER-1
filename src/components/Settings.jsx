@@ -61,68 +61,58 @@ export default function Settings() {
 
       {/* Wallet Management Section */}
 
-      <section className="bg-white p-3 sm:p-4 rounded-lg shadow mb-4 sm:mb-6">
-
-        <h2 className="text-lg sm:text-xl font-semibold mb-2">
-          Wallet Management
-        </h2>
-
-        <div className=" ">
-          {connectionStatus === "connected" ? (
-            <div>
-              <p>{balance} IOTA</p>
-              <h2>Current wallet:</h2>
-              <div>Name: {currentWallet.name}</div>
-            </div>
-          ) : (
-            <div>Connection status: {connectionStatus}</div>
-          )}
-        </div>
-        {account ? (
-          <div className="space-y-2">
-            {/* testing */}
-            <div style={{ padding: 20 }}>
-              <h2>Available Chain:</h2>
-              {accounts.length === 0 && <div>No accounts detected</div>}
-              <ul>
-                {accounts.map((account) => (
-                  <li className="text-xs text-green-500" key={account.address}>
-                    {account.chains}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <p>
-              <span className="font-medium dark:text-gray-300">Address:</span>{" "}
-              <span className="font-mono text-xs sm:text-sm dark:text-gray-100">
-                {account.address}
-              </span>
-            </p>
-            <button
-              type="button"
-              onClick={disconnect}
-              className="mt-2 px-3 sm:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
-            >
-              Disconnect Wallet
-            </button>
-          </div>
-        ) : (
-          <p className="text-gray-600 dark:text-gray-400">
-            No wallet connected.
-          </p>
-        )}
-      </section>
-
-      {/* Points Display Section */}
       <section className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow mb-4 sm:mb-6">
-        <h2 className="text-lg sm:text-xl font-semibold mb-2 dark:text-gray-200">
-          Your Points
-        </h2>
-        <p className="text-xl sm:text-2xl font-semibold dark:text-gray-100">
-          {points}
-        </p>
-      </section>
+  <h2 className="text-lg sm:text-xl font-semibold mb-2 dark:text-gray-100">
+    Wallet Management
+  </h2>
+
+  <div>
+    {connectionStatus === "connected" ? (
+      <div>
+        <p className="dark:text-gray-200">{balance} IOTA</p>
+        <h2 className="dark:text-gray-200">Current wallet:</h2>
+        <div className="dark:text-gray-300">Name: {currentWallet.name}</div>
+      </div>
+    ) : (
+      <div className="dark:text-gray-300">Connection status: {connectionStatus}</div>
+    )}
+  </div>
+
+  {account ? (
+    <div className="space-y-2">
+      <div className="p-5">
+        <h2 className="dark:text-gray-200">Available Chain:</h2>
+        {accounts.length === 0 && (
+          <div className="dark:text-gray-400">No accounts detected</div>
+        )}
+        <ul>
+          {accounts.map((account) => (
+            <li className="text-xs text-green-500" key={account.address}>
+              {account.chains}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <p>
+        <span className="font-medium dark:text-gray-300">Address:</span>{" "}
+        <span className="font-mono text-xs sm:text-sm dark:text-gray-100">
+          {account.address}
+        </span>
+      </p>
+      <button
+        type="button"
+        onClick={disconnect}
+        className="mt-2 px-3 sm:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+      >
+        Disconnect Wallet
+      </button>
+    </div>
+  ) : (
+    <p className="text-gray-600 dark:text-gray-400">No wallet connected.</p>
+  )}
+</section>
+
 
       {/* Auto-Donation Toggle Section */}
       <section className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg shadow">
