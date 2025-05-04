@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* index.css or App.css */
 body {
     cursor: url('/cursorr.png'), auto;
