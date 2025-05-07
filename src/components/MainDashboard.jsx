@@ -19,7 +19,16 @@ export default function MainDashboard() {
   // };
   const [points, setPoints] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [walletConnected, setWalletConnected] = useState(false);
+
   useEffect(() => {
+    if (!account) {
+      setLoading(false);
+      setWalletConnected(false);
+      return;
+    }
+
+    setWalletConnected(true);
     const fetchPoints = async () => {
       try {
         const currentPoints = await WalletService.getWalletPoints(
@@ -33,10 +42,9 @@ export default function MainDashboard() {
       }
     };
 
-    if (account.address) {
-      fetchPoints();
-    }
-  }, [account.address]);
+    fetchPoints();
+  }, [account]); // Changed dependency to account instead of account.address
+
   if (loading) return <div>Loading points...</div>;
   return (
     <div
@@ -50,16 +58,14 @@ export default function MainDashboard() {
       {/* Header */}
       <header className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold">Your Dashboard</h1>
-        {account && (
-          <div
-            className="
-            mt-2 sm:mt-0 text-xs sm:text-sm font-mono break-all
-            bg-white/80 text-gray-800 backdrop-blur-sm
-            dark:bg-gray-800/80 dark:text-gray-200
-            px-3 py-2 rounded-lg shadow-sm
-          "
-          >
+        {walletConnected && account?.address && (
+          <div className="mt-2 sm:mt-0 text-xs sm:text-sm font-mono break-all bg-white/80 text-gray-800 backdrop-blur-sm dark:bg-gray-800/80 dark:text-gray-200 px-3 py-2 rounded-lg shadow-sm">
             Connected: {account.address}
+          </div>
+        )}
+        {!walletConnected && (
+          <div className="mt-2 sm:mt-0 text-xs sm:text-sm font-mono break-all bg-red-100 text-red-800 px-3 py-2 rounded-lg shadow-sm">
+            Wallet not connected
           </div>
         )}
       </header>
