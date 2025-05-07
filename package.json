@@ -12,6 +12,7 @@
   "dependencies": {
     "@iota/dapp-kit": "^0.4.1",
     "@iota/iota-sdk": "^0.6.0",
+    "@supabase/supabase-js": "^2.49.4",
     "@tanstack/react-query": "^5.74.4",
     "chart.js": "^4.4.9",
     "idb-keyval": "^6.2.1",

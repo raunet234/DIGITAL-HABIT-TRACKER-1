@@ -31,19 +31,14 @@ function Navigation() {
     <nav
       className={`fixed w-full z-[100] transition-all duration-300 ${
         scrolled
-           ? "bg-white dark:bg-gray-900 shadow-md"
-           : "bg-gray-50 dark:bg-gray-900"
-
-      }`
-    }
+          ? "bg-white dark:bg-gray-900 shadow-md"
+          : "bg-gray-50 dark:bg-gray-900"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center space-x-2 group"
-          >
+          <Link to="/" className="flex items-center space-x-2 group">
             <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
               HabitRise
             </span>

@@ -8,6 +8,8 @@ export async function useGetBalance(myAddress) {
 
   console.log(
     "Balance in Nano (1_000_000_000 Nano = 1 IOTA): ",
-    balance.totalBalance
+    balance.totalBalance,
   );
+
+  return balance.totalBalance;
 }

@@ -1,15 +1,43 @@
 // src/components/MainDashboard.jsx
-import React from "react";
+//
+"use client";
+import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HabitLogger from "./HabitLogger";
 import HabitChallenges from "./HabitChallenges";
 import { useRewards } from "../hooks/useRewards";
 import { useWallet } from "../hooks/useWallet";
+import { WalletService } from "../services/walletService";
 
 export default function MainDashboard() {
-  const { points, isConverting, convertToMiota } = useRewards();
+  const { isConverting, convertToMiota } = useRewards();
   const { account } = useWallet();
+  // const handleGetPoints = async () => {
+  //   console.log(account.address, "we have address");
+  //   await WalletService.updateWalletPoints(account.address, 100);
+  //   console.log("Points updated successfully");
+  // };
+  const [points, setPoints] = useState(0);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchPoints = async () => {
+      try {
+        const currentPoints = await WalletService.getWalletPoints(
+          account.address,
+        );
+        setPoints(currentPoints);
+      } catch (error) {
+        console.error("Error fetching points:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    if (account.address) {
+      fetchPoints();
+    }
+  }, [account.address]);
+  if (loading) return <div>Loading points...</div>;
   return (
     <div
       className="
@@ -21,35 +49,34 @@ export default function MainDashboard() {
     >
       {/* Header */}
       <header className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold">
-          Your Dashboard
-        </h1>
+        <h1 className="text-2xl sm:text-3xl font-bold">Your Dashboard</h1>
         {account && (
-          <div className="
+          <div
+            className="
             mt-2 sm:mt-0 text-xs sm:text-sm font-mono break-all
             bg-white/80 text-gray-800 backdrop-blur-sm
             dark:bg-gray-800/80 dark:text-gray-200
             px-3 py-2 rounded-lg shadow-sm
-          ">
+          "
+          >
             Connected: {account.address}
           </div>
         )}
       </header>
 
-
       {/* Points + Convert */}
-      <section className="
+      <section
+        className="
         w-full max-w-4xl
         bg-white text-gray-800
         dark:bg-gray-800 dark:text-gray-200
         p-4 sm:p-6 rounded-lg shadow mb-4 sm:mb-8
         flex flex-col sm:flex-row justify-between items-center
-      ">
+      "
+      >
         <div>
           <p className="text-gray-600 dark:text-gray-400">Points Earned</p>
-          <p className="text-3xl sm:text-4xl font-semibold">
-            {points}
-          </p>
+          <p className="text-3xl sm:text-4xl font-semibold">{points}</p>
         </div>
         <button
           type="button"
@@ -65,6 +92,7 @@ export default function MainDashboard() {
           Convert to MIOTA
         </button>
       </section>
+      {/*  */}
 
       {/* Habit Challenges */}
       <section className="w-full max-w-4xl mb-4 sm:mb-8">
